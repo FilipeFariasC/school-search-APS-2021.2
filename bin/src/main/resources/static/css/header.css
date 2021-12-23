@@ -1,0 +1,133 @@
+:root {
+  --blue: #41EAD4;
+  --dark-blue:  #153c65;
+  --greenish-blue:  #114B53;
+  --caribbean-green: #21D19F;
+  --keppel: #45B69C;
+  --iris: #454ADE;
+  --aquamarine-blue: #4CE0B3;
+  --verde-persa: #12A592;
+}
+body {
+	background: var(--verde-persa);
+	min-height: 100vh;
+}
+*{
+	box-sizing: border-box;
+}
+
+.wrapper {
+  padding-block: 2vh;
+  background-color: var(--blue);
+}
+.wrapper-header{
+	position:sticky;
+	bottom: 100%;
+}
+
+.wrap {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.fa-user{
+	color: var(--greenish-blue);
+}
+
+.navbar {
+  padding: 0px;
+}
+.navbar-transparent {
+  background-color: transparent !important;
+}
+.navbar-header {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-nav + .navbar-nav {
+  margin-right: 0px;
+}
+.school-search-icon {
+  max-width: 48px;
+}
+.image-circle {
+  display: inline-block;
+  border: 2.5px solid var(--greenish-blue);
+  border-radius: 50%;
+  padding: 5px;
+  
+  height: 48px;
+  aspect-ratio: 1;
+}
+
+.dropdown-toggle {
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+
+.dropdown {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main {
+  flex: 1 1 0;
+  justify-content: space-evenly;
+  padding-inline: 15%;
+}
+.navbar-header .nav-item {
+  width: 50%;
+  border-radius: 5px;
+}
+.navbar-header .nav-item + .nav-item {
+  margin-top: 10px;
+}
+.nav-link {
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px;
+}
+.navbar-header .nav-link {
+  border: 2px solid var(--greenish-blue);
+}
+
+.nav-link.dropdown-toggle {
+  border: 0px;
+}
+
+.navbar-collapse {
+  padding-block: 2.5%;
+}
+
+.dropdown-menu {
+  z-index: 2;
+}
+
+@media (min-width: 992px) {
+  .brand-title {
+    display: none;
+  }
+  .dropdown-menu {
+    transform: translateX(-50%);
+  }
+  .nav-item {
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+  }
+  .navbar-collapse {
+    padding-block: 0;
+  }
+  .navbar-header .nav-item + .nav-item {
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+}

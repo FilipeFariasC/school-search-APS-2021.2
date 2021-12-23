@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Listar Escolas</title>
+	<div th:replace="/fragments/head.html :: heading"></div>
+	<div th:insert="/fragments/header.html :: css"></div>
+	<div th:replace="/fragments/footer.html :: css"></div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+		integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+		integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="/css/listar-escola.css" />
+</head>
+
+<body>
+	<div th:replace="fragments/header.html :: navbar"></div>
+	<div class="wrap">
+		<div class="container">
+			<div class="input-group mb-3">
+			  <input type="text" class="form-control center" placeholder="Nome da Escola" aria-label="escola" aria-describedby="basic-addon1">
+			  
+			  <span class="input-group-text" id="basic-addon1">
+			  	<a href="/pesquisar">
+			  		<i class="fas fa-search"></i>
+			  	</a>
+			  </span>
+			</div>
+			<div class="group-wrapper">
+				<div class="input-group mb-3">
+					<a href="#filtros" class="form-control center text-filtro" aria-label="filtros" role="button" aria-expanded="false" aria-controls="filtros" data-bs-toggle="collapse" >Filtros</a>
+					<span class="input-group-text filtros" id="basic-addon2">
+						<a class="btn" data-bs-toggle="collapse" href="#filtros" role="button" aria-expanded="false" aria-controls="filtros">
+	    					<i class="fas fa-caret-down"></i>
+	  					</a>
+					</span>
+				</div>
+				<div class="collapse" id="filtros">
+				  <div class="card card-body filtros-body">
+				    <div class="classificacaoEnsinoWrapper">
+				    	<div class="form-check classificacaoEnsinoFiltro" th:each="classificacao : ${classificacaoEnsino}">
+						  <div class="classificacaoEnsino">
+						  	<input class="form-check-input" type="checkbox" th:value="${classificacao.classificacao}" id="flexCheckDefault">
+						  	<label class="form-check-label" for="flexCheckDefault">
+						  	  [[${classificacao.classificacao}]]
+						  	</label>
+						  </div>
+						</div>
+				    </div>
+					<div class="nivelEnsinoWrapper">
+						<div class="form-check nivelEnsinoFiltro" th:each="nivel : ${nivelEnsino}">
+						  <div class="classificacaoEnsino">
+						  	<input class="form-check-input" type="checkbox" th:value="${nivel.nivel}" id="flexCheckDefault">
+						  	<label class="form-check-label" for="flexCheckDefault">
+						  	  [[${nivel.nivel}]]
+						  	</label>
+						  </div>
+						</div>
+					</div>
+					<div class="metodoEnsinoWrapper">
+						<div class="form-check metodoEnsinoFiltro" th:each="metodo : ${metodoEnsino}">
+						  <div class="classificacaoEnsino">
+						  	<input class="form-check-input" type="checkbox" th:value="${metodo.metodo}" id="flexCheckDefault">
+						  	<label class="form-check-label" for="flexCheckDefault">
+						  	  [[${metodo.metodo}]]
+						  	</label>
+						  </div>
+						</div>
+					</div>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="container-fluid card card-body">
+				<div class="escola-wrapper" th:each="escola : ${escolas}">
+					<i class="fas fa-school school-image fa-4x"></i>
+					<div class="info-escola">
+						<div class="wrap-button">
+							<a th:href="@{/escola/{id}(id=${escola.id})}" class="more-info-button"><h5 class="titulo" th:text="${escola.nome}"></h5></a>
+					 		<button class="btn btn-primary btn-more-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-outras-infos" aria-expanded="false" aria-controls="collapseWidthExample">
+								Mais informações
+						  	</button>
+					 	</div>
+						<div >
+							
+						 	<div class="wrap-info wrap-info-endereco">
+						 		<h6 class="titulo">Endereço</h6 >
+						 		<table th:with="endereco=${escola.endereco}" class="info-endereco">
+						 			<thead>
+						 				<tr>
+						 					<th>Logradouro</th>
+						 					<th>Número</th>
+						 					<th>Bairro</th>
+						 					<th>Cidade</th>
+						 					<th>Estado</th>
+						 				</tr>
+						 			</thead>
+						 			<tbody>
+						 				<tr>
+						 					<td>[[${endereco.logradouro}]]</td>
+						 					<td>[[${endereco.numero}]]</td>
+						 					<td>[[${endereco.bairro}]]</td>
+						 					<td>[[${endereco.cidade}]]</td>
+						 					<td>[[${endereco.estado}]]</td>
+						 				</tr>
+						 			</tbody>
+						 		</table  >
+						 	</div>
+						 	<div class="collapse wrap-other-info" id="collapse-outras-infos">
+								<div class="wrapper-info wrap-enums">
+									<div class="wrap-info wrap-info-classificacao-ensino">
+										<h6 class="titulo">Classificação de Ensino: </h6 >
+										<p class="classificacao wrap-values" th:text="${escola.classificacaoEnsino.classificacao}"></p>
+									</div>
+									<div class="wrap-info wrap-info-nivel-ensino">
+										<h6 class="titulo">Nível de Ensino: </h6  >
+										<div class="niveis wrap-values">
+											<p th:each="nivel : ${escola.nivelEnsino}">[[${nivel}]]
+											</p >
+										</div>
+									</div >
+									<div class="wrap-info wrap-info-metodo-ensino">
+										<h6 class="titulo">Método de Ensino: </h6  >
+										<p class="metodo wrap-values"th:text="${escola.metodoEnsino.metodo}">
+									</div >
+								</div>
+								<div class="wrapper-info wrap-mensalidade-idiomas">
+									<div class="wrap-info wrap-info-mensalidade">
+										<h6 class="titulo">Mensalidade</h6>
+										<p class="mensalidade wrap-values" th:text="${escola.mensalidade}"></p >
+									</div>
+									<div class="wrap-info wrap-info-idiomas">
+										<h6 class="titulo">Idiomas</h6>
+										<div class="niveis wrap-values">
+											<p th:each="idioma : ${escola.linguas}">[[${idioma.lingua}]]
+											</p >
+										</div>
+									</div>
+									<div class="wrap-info more-info"><a th:href="@{/escola/{id}(id=${escola.id})}" class="btn btn-primary btn-more-info btn-collapsed">Visualizar Perfil da Escola</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+			
+	<div th:replace="fragments/footer.html :: footer"></div>
+	</body>
+</html>
